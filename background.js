@@ -1,13 +1,24 @@
+const badge = browser.action;
+
+function getBadgeColor(count) {
+  if (count === 0) return '#2e7d32';   // green
+  if (count <= 3) return '#f9a825';    // yellow/orange
+  return '#c62828';                    // red
+}
+
 let trackersByTab = {};
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'TRACKERS_FOUND') {
     trackersByTab[sender.tab.id] = message.trackers;
-    browser.browserAction.setBadgeText({
+    badge.setBadgeText({
       text: message.trackers.length > 0 ? String(message.trackers.length) : '',
       tabId: sender.tab.id,
     });
-    browser.browserAction.setBadgeBackgroundColor({ color: '#8a5a2b' });
+    badge.setBadgeBackgroundColor({
+      color: getBadgeColor(message.trackers.length),
+      tabId: sender.tab.id,
+    });
   }
 
   if (message.type === 'GET_TRACKERS') {
