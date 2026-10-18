@@ -1,5 +1,3 @@
-const badge = browser.action;
-
 function getBadgeColor(count) {
   if (count === 0) return '#2e7d32';   // green
   if (count <= 3) return '#f9a825';    // yellow/orange
@@ -11,11 +9,11 @@ let trackersByTab = {};
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'TRACKERS_FOUND') {
     trackersByTab[sender.tab.id] = message.trackers;
-    badge.setBadgeText({
-      text: message.trackers.length > 0 ? String(message.trackers.length) : '',
+    browser.action.setBadgeText({
+      text: String(message.trackers.length),
       tabId: sender.tab.id,
     });
-    badge.setBadgeBackgroundColor({
+    browser.action.setBadgeBackgroundColor({
       color: getBadgeColor(message.trackers.length),
       tabId: sender.tab.id,
     });
