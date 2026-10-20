@@ -11,10 +11,11 @@ function detectTrackers(blocklist) {
   const matches = [];
 
   scripts.forEach((script) => {
-    const src = script.src;
+    const src = script.src.toLowerCase();
     blocklist.forEach((tracker) => {
-      if (src.includes(tracker.name || tracker)) {
-        matches.push(tracker.name || tracker);
+      const name=tracker.name || tracker;
+      if (src.includes(name.toLowerCase())) {
+        matches.push(name);
       }
     });
   });
