@@ -1,3 +1,7 @@
+// Cross-browser: Chrome/Edge only expose `chrome`
+if (typeof browser === 'undefined') {
+  globalThis.browser = chrome;
+}
 document.querySelectorAll('.tab-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
