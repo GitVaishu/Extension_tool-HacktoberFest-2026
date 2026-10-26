@@ -3,26 +3,26 @@
   "name": "Tracker Detector",
   "version": "1.0",
   "description": "Detects known tracker scripts on the current webpage",
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "background": {
+    "service_worker": "background.js",
     "scripts": ["background.js"]
   },
- "content_scripts": [
-  {
-    "matches": ["<all_urls>"],
-    "js": ["content-script.js"],
-    "run_at": "document_idle"
-  }
-],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "🔍Tracker Detector"
   },
   "web_accessible_resources": [
-  {
-    "resources": ["blocklist.json"],
-    "matches": ["<all_urls>"]
-  }
-]
-
+    {
+      "resources": ["blocklist.json"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

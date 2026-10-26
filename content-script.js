@@ -1,3 +1,7 @@
+// Cross-browser: Chrome/Edge only expose `chrome`
+if (typeof browser === 'undefined') {
+  globalThis.browser = chrome;
+}
 // Fetch the blocklist bundled with the extension
 fetch(browser.runtime.getURL('blocklist.json'))
   .then((response) => response.json())
